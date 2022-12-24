@@ -3,15 +3,12 @@ import java.awt.Container;
 import java.awt.Toolkit;
 import java.awt.event.*;
 import java.io.*;
-
 import javax.swing.*;
 import javax.swing.text.StyledDocument;
 
 public class NotePad extends JFrame implements ActionListener {
-
     private JMenuBar menuBar;
     private JToolBar toolBar,toolBar2;
-
     private JButton butOpen,save;
     private JTextPane textPane;
     private JTextField selectText;
@@ -42,7 +39,6 @@ public class NotePad extends JFrame implements ActionListener {
                         File f = new File(path);
                         if(!f.exists()){
                             JOptionPane.showMessageDialog(new JFrame(), "该路径不存在该文件", "路径错误",JOptionPane.WARNING_MESSAGE);
-
                         }else{
                             try {
                                 InputStream is = new FileInputStream(f);
@@ -51,9 +47,6 @@ public class NotePad extends JFrame implements ActionListener {
                                 ex.printStackTrace();
                             }
                         }
-
-
-
                 }
             }
         });
@@ -61,14 +54,9 @@ public class NotePad extends JFrame implements ActionListener {
         butOpen = new JButton("选择文件");
         butOpen.addActionListener(this);
         butOpen.setActionCommand("open");
-
-
         toolBar.add(select);
         toolBar.add(selectText);
-
         toolBar.add(butOpen);
-
-
         textPane = new JTextPane();
         textPane.addKeyListener(new KeyAdapter() {
             @Override
@@ -80,11 +68,8 @@ public class NotePad extends JFrame implements ActionListener {
                         JOptionPane.showMessageDialog(new JFrame(), "该文件只能输入0或者1", "输入错误",JOptionPane.WARNING_MESSAGE);
                         e.consume();
                     }
-
                 }
-
         });
-
 
         fileChooser = new JFileChooser();
         scrollPane = new JScrollPane(textPane);
@@ -92,8 +77,6 @@ public class NotePad extends JFrame implements ActionListener {
         container.add(toolBar, BorderLayout.NORTH);
         container.add(scrollPane, BorderLayout.CENTER);
         container.add(toolBar2, BorderLayout.SOUTH);
-
-
         this.setTitle("Exercise17_21 NotePad");
         this.setSize(600, 300);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -102,7 +85,6 @@ public class NotePad extends JFrame implements ActionListener {
         this.setLocation((width - 500) / 2, (height - 400) / 2);
         this.setVisible(true);
         this.setResizable(true);
-
         this.addWindowListener(new WindowListener() {
                     @Override
                     public void windowOpened(WindowEvent e) {
@@ -153,7 +135,6 @@ public class NotePad extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
          if (e.getActionCommand().equals("open")) {
             int i = fileChooser.showOpenDialog(NotePad.this);
             if (i == JFileChooser.APPROVE_OPTION) {
@@ -166,7 +147,6 @@ public class NotePad extends JFrame implements ActionListener {
                 }
                 for(int j=0;j<b.length;j++)
                 {
-
                     System.out.print(String.format("%08d",Integer.parseInt(Integer.toBinaryString(0xff & b[j]))));
                     StyledDocument doc = textPane.getStyledDocument();
                     try
@@ -176,7 +156,7 @@ public class NotePad extends JFrame implements ActionListener {
                     catch(Exception ex) { System.out.println(e); }
                 }
 //                try {
-//                    InputStream is = new FileInputStream(f); 
+//                    InputStream is = new FileInputStream(f);
 //
 //                    textPane.read(is, "d");
 //                } catch (Exception ex) {
@@ -199,21 +179,17 @@ public class NotePad extends JFrame implements ActionListener {
 
     public static byte[] fileToByte(String filepath) throws IOException
     {
-
         byte[] bytes = null;
         FileInputStream fis = null;
         try{
-
             File file = new File(filepath);
             fis = new FileInputStream(file);
             bytes = new byte[(int) file.length()];
             fis.read(bytes);
         }catch(IOException e){
-
             e.printStackTrace();
             throw e;
         }finally{
-
             fis.close();
         }
         return bytes;
