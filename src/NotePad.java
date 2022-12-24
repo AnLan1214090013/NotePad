@@ -16,11 +16,6 @@ public class NotePad extends JFrame implements ActionListener {
     private JFileChooser fileChooser;
     private JScrollPane scrollPane;
 
-
-    public static void main(String[] args) {
-        new NotePad();
-    }
-
     public NotePad() {
         menuBar = new JMenuBar();
         toolBar2 = new JToolBar();
